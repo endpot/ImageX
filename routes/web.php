@@ -12,5 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
+
+Route::get('delete/{deleteCode}', 'ImageController@destroy')->name('deleteImage');

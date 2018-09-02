@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
@@ -39,7 +40,7 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapWebRoutes();
 
-        //
+        $this->mapStaticRoutes();
     }
 
     /**
@@ -69,5 +70,19 @@ class RouteServiceProvider extends ServiceProvider
              ->middleware('api')
              ->namespace($this->namespace)
              ->group(base_path('routes/api.php'));
+    }
+
+    /**
+     * Define the "static" routes for the application
+     *
+     * These routes are typically stateless
+     *
+     * @return void
+     */
+    protected function mapStaticRoutes()
+    {
+        Route::middleware('static')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/static.php'));
     }
 }
