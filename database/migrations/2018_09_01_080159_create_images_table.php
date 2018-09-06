@@ -24,6 +24,7 @@ class CreateImagesTable extends Migration
             $table->boolean('nsfw')->default(false)->comment('Normal or NSFW');
             $table->string('uploader_ip', 64)->comment('Image Uploader IP');
             $table->string('fingerprint', 32)->comment('Image Fingerprint');
+            $table->string('save_name', 32)->comment('Image Save Name');
             $table->unsignedBigInteger('size')->comment('Image Size in Bits');
             $table->unsignedBigInteger('views')->comment('Image View Counts');
 

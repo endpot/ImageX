@@ -50,12 +50,18 @@ class ImageController extends Controller
     {
         $image = Image::where('delete_code', $deleteCode)->first();
         if ($image) {
-            $fileName = $image->code . '.' . $image->ext;
-            if (Storage::disk('local')->delete($this->getLocalStoragePath($fileName))
-                && Storage::disk('b2')->delete($this->getRemoteStoragePath($fileName))) {
+            $sameImageCount = Image::where('save_name', $image->save_name)->count();
+            if ($sameImageCount > 1) {
+                // just delete record
                 $image->delete();
-
                 return response('OK');
+            } else {
+                if (Storage::disk('local')->delete($this->getLocalStoragePath($image->save_name))
+                    && Storage::disk('b2')->delete($this->getRemoteStoragePath($image->save_name))) {
+                    // delete image and database record
+                    $image->delete();
+                    return response('OK');
+                }
             }
         }
 
@@ -195,36 +201,38 @@ class ImageController extends Controller
     private function saveSingleImage($imageFile, $options = [])
     {
         if ($this->validateImageFile($imageFile)) {
+            $code = $this->generateCode(5, true);
+            $deleteCode = $code . $this->generateCode();
+            $originalName = $imageFile->getClientOriginalName();
+            $originalExtension = $imageFile->getClientOriginalExtension();
+
+            $imageOperation = \ImageIntervention::make($imageFile);
+            $imageWidth = $imageOperation->width();
+            $imageHeight = $imageOperation->height();
+            $imageSize = $imageOperation->fileSize();
+
             $fingerprint = md5_file($imageFile->path());
-            $image = Image::firstOrNew(['fingerprint' => $fingerprint]);
 
-            if (empty($image->code)) {
-                $code = $this->generateCode(5, true);
-                $deleteCode = $code . $this->generateCode();
-                $originalName = $imageFile->getClientOriginalName();
-                $originalExtension = $imageFile->getClientOriginalExtension();
+            $existImage = Image::where('fingerprint', $fingerprint)->first();
+            $saveName = $existImage ? $existImage->save_name : $code . '.' . $originalExtension;
 
-                $imageOperation = \ImageIntervention::make($imageFile);
-                $imageWidth = $imageOperation->width();
-                $imageHeight = $imageOperation->height();
-                $imageSize = $imageOperation->fileSize();
+            if ($existImage || ($imageFile->storeAs($this->getLocalStoragePath(),
+                        $saveName, ['disk' => 'local']) && $this->pushImageToRemote($saveName))) {
+                $image = new Image();
 
-                $newFileName = $code . '.' . $originalExtension;
-                if ($imageFile->storeAs($this->getLocalStoragePath(), $newFileName, ['disk' => 'local'])
-                    && $this->pushImageToRemote($newFileName)) {
-                    $image->code = $code;
-                    $image->delete_code = $deleteCode;
-                    $image->name = $originalName;
-                    $image->ext = $originalExtension;
-                    $image->width = $imageWidth;
-                    $image->height = $imageHeight;
-                    $image->nsfw = $options['nsfw'] ?: false;
-                    $image->uploader_ip = $options['uploader_ip'] ?: '';
-                    $image->fingerprint = $fingerprint;
-                    $image->size = $imageSize;
-                    $image->views = 0;
-                    $image->save();
-                }
+                $image->code = $code;
+                $image->delete_code = $deleteCode;
+                $image->name = $originalName;
+                $image->ext = $originalExtension;
+                $image->width = $imageWidth;
+                $image->height = $imageHeight;
+                $image->nsfw = $options['nsfw'] ?: false;
+                $image->uploader_ip = $options['uploader_ip'] ?: '';
+                $image->fingerprint = $fingerprint;
+                $image->save_name = $saveName;
+                $image->size = $imageSize;
+                $image->views = 0;
+                $image->save();
             }
         }
 
