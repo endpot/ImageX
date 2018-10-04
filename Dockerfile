@@ -1,4 +1,4 @@
-FROM php:7.2-fpm
+FROM php:7.2-fpm-alpine
 
 MAINTAINER endpot@gmail.com
 
@@ -28,7 +28,7 @@ RUN apt-get update \
     && docker-php-ext-install mbstring \
     && docker-php-ext-install gettext \
     && docker-php-ext-install opcache \
-    && rm /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/*
 
 # install composer
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
