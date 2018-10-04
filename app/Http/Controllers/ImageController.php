@@ -70,23 +70,21 @@ class ImageController extends Controller
 
     public function create(Request $request)
     {
-        $saveResult = [];
-        if ($request->hasFile('images')) {
-            $imageFiles = $request->file('images');
+        $saveResult = '';
+
+        if ($request->hasFile('image')) {
+            $imageFile = $request->file('image');
 
             $extraOptions = [
                 'nsfw' => $request->input('nsfw') === 'true' ? true : false,
                 'uploader_ip' => $request->ip(),
             ];
-            foreach ($imageFiles as $imageFile) {
-                if ($singleResult = $this->saveSingleImage($imageFile, $extraOptions)) {
-                    $saveResult[] = $singleResult;
-                }
-            }
+
+            $saveResult = $this->saveSingleImage($imageFile, $extraOptions);
         }
 
         return response()->json([
-            'success' => count($saveResult) > 0 ? true : false,
+            'success' => !empty($saveResult) ? true : false,
             'data' => $saveResult,
         ]);
     }
