@@ -4,8 +4,8 @@ MAINTAINER endpot@gmail.com
 
 # more extension
 RUN apt-get update \
-    && apt-get install -y --force-yes --no-install-recommends \
-        libmemcached-dev libz-dev libpq-dev libjpeg-dev libpng-dev libfreetype6-dev libssl-dev \
+    && apt-get install -y libmemcached-dev libz-dev libpq-dev \
+        libjpeg-dev libpng-dev libfreetype6-dev libssl-dev \
         libmcrypt-dev libxml2-dev openssh-server libmagickwand-dev git cron nano \
     && :\
     && docker-php-ext-configure gd --with-jpeg-dir=/usr/include/ --with-freetype-dir=/usr/include/ \
