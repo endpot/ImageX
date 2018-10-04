@@ -11,18 +11,18 @@ RUN apt-get update \
     && docker-php-ext-configure gd --with-jpeg-dir=/usr/include/ --with-freetype-dir=/usr/include/ \
     && docker-php-ext-install gd \
     && :\
-    && docker-php-ext-install soap
+    && docker-php-ext-install soap \
     && :\
-    && docker-php-ext-install pcntl
+    && docker-php-ext-install pcntl \
     && :\
-    && docker-php-ext-install zip
+    && docker-php-ext-install zip \
     && :\
-    && docker-php-ext-install pdo_mysql
+    && docker-php-ext-install pdo_mysql \
     && :\
-    && docker-php-ext-install bcmath
+    && docker-php-ext-install bcmath \
     && :\
     && pecl install imagick \
-    && docker-php-ext-enable imagick
+    && docker-php-ext-enable imagick \
     && :\
     && docker-php-ext-install exif \
     && docker-php-ext-install mbstring \
