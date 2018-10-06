@@ -27,7 +27,7 @@ class ImageController extends Controller
                 'views' => $image->views + 1
             ]);
 
-            $fileName = $image->code . '.' . $image->ext;
+            $fileName = $image->save_name;
             if ($this->fetchImageFromRemote($fileName)) {
                 $imagePath = storage_path(
                     'app' .  DIRECTORY_SEPARATOR . $this->getLocalStoragePath($fileName)
