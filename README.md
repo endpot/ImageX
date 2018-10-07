@@ -1,2 +1,2 @@
 # ImageX
-A free image host built with laravel and adminlte
+A free image host built with laravel and B2
