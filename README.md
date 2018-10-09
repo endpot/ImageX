@@ -13,7 +13,7 @@ A free image host built with laravel and B2. Demo: [iEndPot](https://i.endpot.co
 ## TL;DR
 1. Clone this project to your web application dir
 2. Rename .env.example to .env, and change the settings in it, especially those B2 related (please use master key instead of application key from your B2 account here)
-3. Set up crontab to run (Laravel Schedule)[https://laravel.com/docs/scheduling#introduction]
+3. Set up crontab to run [Laravel Schedule](https://laravel.com/docs/scheduling#introduction)
 
 ## Docker
 Please see [HunterXuan/imagex-docker](https://github.com/HunterXuan/imagex-docker)
@@ -22,4 +22,4 @@ Please see [HunterXuan/imagex-docker](https://github.com/HunterXuan/imagex-docke
 Thank you for considering contributing to this project! Feel free to raise your question, share your ideas or make a pull request.
 
 # License
-This project is open-sourced software licensed under the (MIT license)[https://github.com/HunterXuan/ImageX/blob/master/LICENSE].
+This project is open-sourced software licensed under the [MIT license](https://github.com/HunterXuan/ImageX/blob/master/LICENSE).
