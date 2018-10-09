@@ -17,3 +17,9 @@ A free image host built with laravel and B2. Demo: [iEndPot](https://i.endpot.co
 
 ## Docker
 Please see [HunterXuan/imagex-docker](https://github.com/HunterXuan/imagex-docker)
+
+## Contributing
+Thank you for considering contributing to this project! Feel free to raise your question, share your ideas or make a pull request.
+
+# License
+This project is open-sourced software licensed under the (MIT license)[https://github.com/HunterXuan/ImageX/blob/master/LICENSE].
