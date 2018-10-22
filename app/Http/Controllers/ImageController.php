@@ -92,7 +92,7 @@ class ImageController extends Controller
     private function validateImageFile($imageFile)
     {
         return $imageFile->getClientSize() < 5 * 1024 * 1024
-            && in_array($imageFile->extension(), ['jpg', 'jpeg', 'bpm', 'gif', 'png']);
+            && in_array($imageFile->extension(), ['jpg', 'jpeg', 'bmp', 'gif', 'png']);
     }
 
     /**
