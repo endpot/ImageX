@@ -177,8 +177,8 @@ class ImageController extends Controller
         if (\Storage::disk('local')->exists($localPath)) {
             $remotePath = $this->getRemoteStoragePath($fileName);
             try {
-                $localFileContent = \Storage::disk('local')->get($localPath);
-                \Storage::disk('b2')->put($remotePath, $localFileContent);
+                $localFile = \Storage::getDriver()->readStream($localPath);
+                \Storage::disk('b2')->put($remotePath, $localFile);
             } catch (\Exception $exception) {
                 return false;
             }
