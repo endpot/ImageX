@@ -179,7 +179,7 @@ class ImageController extends Controller
             try {
                 $localFile = \Storage::getDriver()->readStream($localPath);
                 \Storage::disk('b2')->put($remotePath, $localFile);
-            } catch (\Exception $exception) {var_dump($exception);
+            } catch (\Exception $exception) {
                 return false;
             }
 
