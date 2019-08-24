@@ -11,8 +11,18 @@
 |
 */
 
-Route::get('/', function () {
-    return view('home');
+Route::get('/', 'HomeController@index');
+
+Route::get('/upload', function () {
+    return view('upload', ['current' => 'upload']);
+});
+
+Route::get('/doc', function () {
+    return view('doc', ['current' => 'doc']);
+});
+
+Route::get('/about', function () {
+    return view('about', ['current' => 'about']);
 });
 
 Route::get('delete/{deleteCode}', 'ImageController@destroy')->name('deleteImage');

@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Image;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
-use App\Models\Image;
-use Intervention\Image\ImageManager;
+use Illuminate\Support\Str;
+use ImageIntervention;
+use Storage;
 
 class ImageController extends Controller
 {
@@ -30,7 +31,7 @@ class ImageController extends Controller
             $fileName = $image->save_name;
             if ($this->fetchImageFromRemote($fileName)) {
                 $imagePath = storage_path(
-                    'app' .  DIRECTORY_SEPARATOR . $this->getLocalStoragePath($fileName)
+                    'app' . DIRECTORY_SEPARATOR . $this->getLocalStoragePath($fileName)
                 );
             }
         }
@@ -57,7 +58,7 @@ class ImageController extends Controller
                 return response('OK');
             } else {
                 if (Storage::disk('local')->delete($this->getLocalStoragePath($image->save_name))
-                    && Storage::disk('b2')->delete($this->getRemoteStoragePath($image->save_name))) {
+                    && Storage::disk('minio')->delete($this->getRemoteStoragePath($image->save_name))) {
                     // delete image and database record
                     $image->delete();
                     return response('OK');
@@ -76,7 +77,7 @@ class ImageController extends Controller
             $imageFile = $request->file('image');
 
             $extraOptions = [
-                'nsfw' => $request->input('nsfw') === 'true' ? true : false,
+                'nsfw' => $request->input('nsfw') === 'true' || $request->input('nsfw') === true ? true : false,
                 'uploader_ip' => $request->ip(),
             ];
 
@@ -92,7 +93,7 @@ class ImageController extends Controller
     private function validateImageFile($imageFile)
     {
         return $imageFile->getClientSize() < 5 * 1024 * 1024
-            && in_array($imageFile->extension(), ['jpg', 'jpeg', 'bmp', 'gif', 'png']);
+            && in_array($imageFile->extension(), ['jpg', 'jpeg', 'gif', 'png']);
     }
 
     /**
@@ -105,7 +106,7 @@ class ImageController extends Controller
     private function generateCode($length = 5, $check = false)
     {
         do {
-            $code = strtoupper(str_random($length));
+            $code = strtoupper(Str::random($length));
 
             $duplicate = $check
                 ? (Image::where('code', $code)->first() ? true : false)
@@ -152,9 +153,9 @@ class ImageController extends Controller
 
         if (!$isLocalFileExist) {
             $remotePath = $this->getRemoteStoragePath($fileName);
-            if (Storage::disk('b2')->exists($remotePath)) {
+            if (Storage::disk('minio')->exists($remotePath)) {
                 try {
-                    $fileContent = Storage::disk('b2')->get($remotePath);
+                    $fileContent = Storage::disk('minio')->get($remotePath);
                     $isLocalFileExist = Storage::disk('local')->put($localPath, $fileContent);
                 } catch (Exception $exception) {
                     $isLocalFileExist = false;
@@ -178,7 +179,7 @@ class ImageController extends Controller
             $remotePath = $this->getRemoteStoragePath($fileName);
             try {
                 $localFile = \Storage::getDriver()->readStream($localPath);
-                \Storage::disk('b2')->put($remotePath, $localFile);
+                \Storage::disk('minio')->put($remotePath, $localFile);
             } catch (\Exception $exception) {
                 return false;
             }
@@ -204,7 +205,7 @@ class ImageController extends Controller
             $originalName = $imageFile->getClientOriginalName();
             $originalExtension = $imageFile->getClientOriginalExtension();
 
-            $imageOperation = \ImageIntervention::make($imageFile);
+            $imageOperation = ImageIntervention::make($imageFile);
             $imageWidth = $imageOperation->width();
             $imageHeight = $imageOperation->height();
             $imageSize = $imageOperation->fileSize();

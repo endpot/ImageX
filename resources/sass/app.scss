@@ -5,4 +5,22 @@
 @import 'variables';
 
 // Bootstrap
-@import '~bootstrap/scss/bootstrap';
+@import '~bootstrap3/dist/css/bootstrap.min.css';
+
+// Admin-LTE
+@import '~font-awesome/css/font-awesome.min.css';
+@import '~ionicons/dist/css/ionicons.min.css';
+@import '~admin-lte/dist/css/AdminLTE.min.css';
+@import '~admin-lte/dist/css/skins/skin-purple.min.css';
+
+.btn-sfw:not(.active) {
+    background-color: #fff;
+    color: #333;
+    border-color: #eee;
+}
+
+.btn-nsfw:not(.active) {
+    background-color: #fff;
+    color: #333;
+    border-color: #eee;
+}
