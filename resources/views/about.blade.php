@@ -34,7 +34,7 @@
                 </tr>
                 <tr>
                     <th>Docker Image</th>
-                    <td><a href="https://cloud.docker.com/u/hunterxuan/repository/docker/hunterxuan/imagex" target="_blank">hunterxuan/imagex-docker</a></td>
+                    <td><a href="https://hub.docker.com/r/endpot/imagex" target="_blank">endpot/imagex</a></td>
                 </tr>
                 <tr>
                     <th>Contact</th>
