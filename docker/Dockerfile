@@ -35,7 +35,6 @@ COPY . /var/www/html
 WORKDIR /var/www/html
 
 RUN cp docker/scripts /var/www/html -r \
-    && chmod +x scripts/*.sh \
     && composer install \
     && mv .env.example .env \
     && chgrp -R nginx storage /var/www/html/bootstrap/cache \
