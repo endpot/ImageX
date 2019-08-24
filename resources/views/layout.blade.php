@@ -72,7 +72,7 @@ desired effect
 
             <!-- Sidebar Menu -->
             <ul class="sidebar-menu" data-widget="tree">
-                <li class="header">Nav</li>
+                <!-- <li class="header">Nav</li> -->
                 <!-- Optionally, you can add icons to the links -->
                 <li class="{{ !isset($current) || $current === 'home' ? 'active' : '' }}"><a href="/"><i
                             class="fa fa-home"></i> <span>Home</span></a></li>

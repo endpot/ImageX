@@ -24,3 +24,22 @@
     color: #333;
     border-color: #eee;
 }
+
+/* fix layout style */
+.main-footer {
+    border: none !important;
+    box-shadow: 0 -1px 0 #d2d6de !important;
+}
+
+/* add scroll style */
+::-webkit-scrollbar
+{
+    width: 7px;
+    background: rgb(251, 246, 246);
+}
+
+::-webkit-scrollbar-thumb
+{
+    border-radius: 7px;
+    background-color: rgba(190, 186, 186, 0.6);
+}
