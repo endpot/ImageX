@@ -63,11 +63,5 @@
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
         ]
-    },
-    "repositories": {
-        "packagist": {
-            "type": "composer",
-            "url": "https://php.cnpkg.org"
-        }
     }
 }
