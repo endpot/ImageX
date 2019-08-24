@@ -1,5 +1,5 @@
 # ImageX
-A free image host built with laravel and B2 (minio gateway b2 mode). Demo: [iEndPot](https://i.endpot.com)
+A free image host built with laravel and MinIO (Recommend: minio gateway b2 mode). Demo: [iEndPot](https://i.endpot.com)
 
 # Features
 1. Built on Laravel, the best PHP Framework
