@@ -52,6 +52,7 @@ class HomeController extends Controller
 
         return Image::where('id', '>', $beginId)
             ->where('nsfw', 0)
+            ->where('updated_at', '>', today())
             ->limit($count)->get();
     }
 }
