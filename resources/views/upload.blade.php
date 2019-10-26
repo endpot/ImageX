@@ -61,10 +61,10 @@
 @endsection
 
 @push('scripts')
-    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdn.bootcss.com/popper.js/1.14.3/umd/popper.min.js"></script>
-    <script src="https://cdn.bootcss.com/bootstrap-fileinput/4.4.8/js/fileinput.min.js"></script>
-    <script src="https://cdn.bootcss.com/bootstrap-fileinput/4.4.8/themes/fa/theme.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-fileinput@5.0.6/js/fileinput.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-fileinput@5.0.6/themes/fa/theme.min.js"></script>
     <script>
         $(function () {
             $("#image-input").fileinput({
