@@ -81,8 +81,8 @@
 @endsection
 
 @push('scripts')
-    <link rel="stylesheet" href="https://cdn.bootcss.com/ekko-lightbox/5.3.0/ekko-lightbox.css">
-    <script src="https://cdn.bootcss.com/ekko-lightbox/5.3.0/ekko-lightbox.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ekko-lightbox@5.3.0/dist/ekko-lightbox.css">
+    <script src="https://cdn.jsdelivr.net/npm/ekko-lightbox@5.3.0/dist/ekko-lightbox.min.js"></script>
     <script>
         $(document).on('click', '[data-toggle="lightbox"]', function(event) {
             event.preventDefault();
