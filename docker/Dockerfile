@@ -3,7 +3,9 @@ FROM richarvey/nginx-php-fpm:1.8.2
 LABEL maintainer="endpot@gmail.com"
 
 # install extension
-RUN apk update \
+# RUN apk update
+
+RUN apk add --no-cache gettext-dev \
     && docker-php-ext-install pcntl \
     && docker-php-ext-install mbstring \
     && docker-php-ext-install exif \
