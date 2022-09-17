@@ -1,4 +1,4 @@
-FROM richarvey/nginx-php-fpm:1.5.7
+FROM richarvey/nginx-php-fpm:1.8.2
 
 LABEL maintainer="endpot@gmail.com"
 
