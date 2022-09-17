@@ -31,7 +31,7 @@ class CleanColdImages implements ShouldQueue
      */
     public function handle()
     {
-        $lastWeeks = Carbon::parse('-1 week')->toDateTimeString();
+        $lastWeeks = Carbon::parse('-5 days')->toDateTimeString();
         $hotImages = Image::where('updated_at', '>', $lastWeeks)->get();
 
         $cacheDirectory = 'public' . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR;
